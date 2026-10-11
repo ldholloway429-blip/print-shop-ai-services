@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Growth Services — From Your Local Print Shop</title>
+<meta name="description" content="AI-powered design, reviews & photos for local businesses — done for you.">
+<style>
+  :root{
+    --navy:#0B2440;
+    --navy-2:#12365e;
+    --orange:#E8722A;
+    --orange-soft:#FFF1E6;
+    --green:#1B7A3D;
+    --ink:#17222e;
+    --gray:#5b6b7c;
+    --line:#e6ecf3;
+    --card:#f5f8fc;
+    --white:#ffffff;
+    --radius:18px;
+    --shadow:0 10px 30px rgba(11,36,64,.10);
+    --shadow-lg:0 18px 50px rgba(11,36,64,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);line-height:1.6;background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  section{padding:84px 0}
+  .eyebrow{
+    display:inline-block;font-size:12px;font-weight:800;letter-spacing:3px;
+    text-transform:uppercase;color:var(--orange);margin-bottom:16px;
+  }
+  .section-title{
+    font-size:clamp(28px,5vw,42px);font-weight:800;letter-spacing:-.5px;
+    color:var(--navy);line-height:1.15;margin-bottom:14px;
+  }
+  .section-sub{color:var(--gray);font-size:18px;max-width:640px}
+  .center{text-align:center}
+  .center .section-sub{margin:0 auto}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.88);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);font-size:17px;text-decoration:none}
+  .brand-mark{
+    width:34px;height:34px;border-radius:10px;flex:none;
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:15px;
+  }
+  .brand-mark span{color:var(--orange)}
+  .nav-links{display:none;gap:28px}
+  @media(min-width:820px){.nav-links{display:flex}}
+  .nav-links a{color:var(--gray);text-decoration:none;font-weight:600;font-size:15px}
+  .nav-links a:hover{color:var(--navy)}
+  .btn{
+    display:inline-block;background:var(--orange);color:#fff;border:none;cursor:pointer;
+    font-weight:800;font-size:16px;text-decoration:none;
+    padding:14px 30px;border-radius:999px;
+    box-shadow:0 6px 18px rgba(232,114,42,.35);
+    transition:transform .15s ease,box-shadow .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(232,114,42,.45)}
+  .btn.small{padding:10px 22px;font-size:14px}
+  .btn.ghost{background:transparent;color:#fff;box-shadow:none;border:2px solid rgba(255,255,255,.35)}
+  .btn.ghost:hover{border-color:#fff;box-shadow:none}
+  .btn.navy{background:var(--navy);box-shadow:0 6px 18px rgba(11,36,64,.3)}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(900px 480px at 85% -10%,rgba(232,114,42,.28),transparent 60%),
+      radial-gradient(700px 420px at -10% 110%,rgba(56,130,200,.25),transparent 60%),
+      linear-gradient(160deg,var(--navy) 0%,#0e2f52 60%,#134074 100%);
+    padding:96px 0 110px;
+  }
+  .hero-grid{display:grid;gap:48px;align-items:center}
+  @media(min-width:900px){.hero-grid{grid-template-columns:1.05fr .95fr}}
+  .hero h1{
+    font-size:clamp(38px,7vw,64px);font-weight:800;line-height:1.08;
+    letter-spacing:-1px;margin-bottom:20px;
+  }
+  .hero h1 em{font-style:normal;color:var(--orange)}
+  .hero .sub{font-size:clamp(16px,3vw,20px);color:#c3d6ea;max-width:520px;margin-bottom:34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+  .hero-note{font-size:14px;color:#8fb0cc}
+  .hero-note strong{color:#fff}
+
+  /* Hero visual: before/after demo card */
+  .demo-card{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+    border-radius:24px;padding:22px;box-shadow:var(--shadow-lg);
+    backdrop-filter:blur(6px);
+  }
+  .demo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .demo-head b{font-size:14px;letter-spacing:2px;color:#9fc0dd}
+  .demo-tag{
+    font-size:12px;font-weight:800;background:var(--orange);color:#fff;
+    padding:5px 12px;border-radius:999px;letter-spacing:1px;
+  }
+  .ba{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:#0a1a2e;user-select:none}
+  .ba-layer{position:absolute;inset:0}
+  .ba-scene{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 30% 30%,#ffb35c 0 12%,transparent 13%),
+      radial-gradient(circle at 72% 62%,#4aa3ff 0 18%,transparent 19%),
+      linear-gradient(115deg,#233d5e 0%,#3c5f8a 45%,#7a4a2b 100%);
+  }
+  .ba-grid{
+    position:absolute;inset:0;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:44px 44px;
+  }
+  .ba-before .ba-scene{filter:blur(7px) saturate(.7) brightness(.85)}
+  .ba-before .ba-grid{filter:blur(7px)}
+  .ba-after{clip-path:inset(0 0 0 50%)}
+  .ba-label{
+    position:absolute;top:12px;font-size:12px;font-weight:800;letter-spacing:2px;
+    background:rgba(0,0,0,.55);color:#fff;padding:5px 12px;border-radius:999px;
+  }
+  .ba-label.l{left:12px}.ba-label.r{right:12px}
+  .ba input[type=range]{
+    position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;
+  }
+  .ba-handle{
+    position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;
+    transform:translateX(-50%);pointer-events:none;
+    box-shadow:0 0 12px rgba(0,0,0,.5);
+  }
+  .ba-knob{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:44px;height:44px;border-radius:50%;background:#fff;color:var(--navy);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);pointer-events:none;
+  }
+  .demo-cap{margin-top:14px;font-size:13px;color:#8fb0cc;text-align:center}
+  .demo-cap b{color:#fff}
+
+  /* ---------- Logo strip ---------- */
+  .strip{padding:34px 0;border-bottom:1px solid var(--line);background:#fff}
+  .strip-row{
+    display:flex;gap:34px;justify-content:center;flex-wrap:wrap;
+    color:#93a3b5;font-weight:800;font-size:14px;letter-spacing:2.5px;
+  }
+
+  /* ---------- Services ---------- */
+  .cards{display:grid;gap:22px;margin-top:44px}
+  @media(min-width:760px){.cards{grid-template-columns:1fr 1fr}}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px 30px;box-shadow:var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease;
+    position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,var(--orange),#f5a623);
+  }
+  .icon{
+    width:54px;height:54px;border-radius:16px;margin-bottom:20px;
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .icon svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:1.5px;margin-bottom:10px}
+  .card p{color:var(--gray);font-size:16px;margin-bottom:18px}
+  .card ul{list-style:none;margin-bottom:20px}
+  .card li{font-size:15px;color:var(--ink);padding:6px 0 6px 28px;position:relative}
+  .card li::before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:800}
+  .price{font-size:24px;font-weight:800;color:var(--navy)}
+  .price small{font-size:14px;font-weight:600;color:var(--gray)}
+
+  /* ---------- Bundle ---------- */
+  .bundle{
+    background:
+      radial-gradient(800px 400px at 50% -20%,rgba(255,255,255,.14),transparent 60%),
+      linear-gradient(150deg,#d9621f,var(--orange) 60%,#f08a3c);
+    color:#fff;text-align:center;
+  }
+  .bundle h2{font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:.5px;margin-bottom:12px}
+  .bundle .lede{font-size:19px;opacity:.95;margin-bottom:30px}
+  .bundle-list{
+    display:inline-block;text-align:left;background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.3);border-radius:16px;
+    padding:24px 30px;margin-bottom:30px;
+  }
+  .bundle-list li{list-style:none;font-size:17px;font-weight:600;padding:7px 0 7px 32px;position:relative}
+  .bundle-list li::before{content:"✓";position:absolute;left:4px;font-weight:800}
+  .bigprice{font-size:clamp(56px,11vw,88px);font-weight:800;line-height:1;margin-bottom:8px;letter-spacing:-2px}
+  .per{font-size:16px;opacity:.9;margin-bottom:30px}
+  .bundle .btn{background:#fff;color:var(--orange);box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:18px;padding:17px 44px}
+  .save{display:block;margin-top:16px;font-size:14px;font-weight:700;opacity:.9}
+
+  /* ---------- How ---------- */
+  .how{background:var(--card)}
+  .steps{display:grid;gap:22px;margin-top:44px}
+  @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px 28px;text-align:center;box-shadow:var(--shadow);
+  }
+  .step .num{
+    width:56px;height:56px;border-radius:50%;margin:0 auto 18px;
+    background:linear-gradient(135deg,var(--orange),#f5a623);color:#fff;
+    font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px rgba(232,114,42,.4);
+  }
+  .step h4{color:var(--navy);font-size:18px;font-weight:800;margin-bottom:8px}
+  .step p{color:var(--gray);font-size:15px}
+
+  /* ---------- FAQ ---------- */
+  details{
+    border:1px solid var(--line);border-radius:14px;margin-bottom:12px;
+    background:#fff;overflow:hidden;
+  }
+  summary{
+    cursor:pointer;list-style:none;padding:20px 24px;font-weight:700;
+    color:var(--navy);font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:24px;color:var(--orange);font-weight:800;flex:none}
+  details[open] summary::after{content:"–"}
+  details p{padding:0 24px 22px;color:var(--gray);font-size:16px}
+  .faq-list{max-width:760px;margin:40px auto 0}
+
+  /* ---------- Sample CTA ---------- */
+  .sample{
+    background:
+      radial-gradient(700px 340px at 50% 0%,rgba(56,130,200,.35),transparent 65%),
+      linear-gradient(165deg,var(--navy),#0e2c4e);
+    color:#fff;text-align:center;
+  }
+  .sample h2{font-size:clamp(26px,5vw,40px);font-weight:800;margin-bottom:14px;letter-spacing:-.5px}
+  .sample p{color:#c3d6ea;font-size:19px;max-width:600px;margin:0 auto 32px}
+  .fine{margin-top:20px;font-size:14px;color:#8fb0cc}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;gap:14px;max-width:680px;margin:40px auto 0}
+  @media(min-width:640px){.contact-grid{grid-template-columns:1fr 1fr}}
+  .contact-item{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;display:flex;flex-direction:column;gap:6px;
+  }
+  .contact-label{font-weight:800;color:var(--orange);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+  .contact-item b{color:var(--navy);font-size:18px}
+  .ph{
+    display:inline-block;background:#fff8e1;border:2px dashed #d9a400;color:#7a5c00;
+    border-radius:8px;padding:4px 12px;font-weight:700;font-size:15px;
+  }
+
+  footer{background:var(--navy);color:#8fb0cc;text-align:center;padding:34px 20px;font-size:14px}
+  footer b{color:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><span class="brand-mark">A<span>I</span></span> AI Growth Services</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#bundle">Package</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="btn small" href="#sample">Free sample</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow" style="color:#f5b87a">From your local print shop</p>
+      <h1>Your marketing, <em>on autopilot.</em></h1>
+      <p class="sub">AI-powered design, reviews &amp; photos for local businesses — done for you, approved by you.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#sample">Claim your free sample</a>
+        <a class="btn ghost" href="#services">See services</a>
+      </div>
+      <p class="hero-note"><strong>48-hour</strong> free sample &nbsp;·&nbsp; <strong>No</strong> credit card &nbsp;·&nbsp; <strong>Zero</strong> tech skills needed</p>
+    </div>
+    <div>
+      <div class="demo-card">
+        <div class="demo-head">
+          <b>PHOTO RESCUE</b>
+          <span class="demo-tag">DRAG ME</span>
+        </div>
+        <div class="ba" id="ba">
+          <div class="ba-layer ba-before">
+            <div class="ba-scene"></div><div class="ba-grid"></div>
+            <span class="ba-label l">BEFORE</span>
+          </div>
+          <div class="ba-layer ba-after" id="baAfter">
+            <div class="ba-scene"></div><div class="ba-grid"></div>
+            <span class="ba-label r">AFTER</span>
+          </div>
+          <div class="ba-handle" id="baHandle"><div class="ba-knob">↔</div></div>
+          <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Before and after comparison slider">
+        </div>
+        <p class="demo-cap"><b>Try it:</b> drag the slider — blurry phone photo in, print-sharp image out.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="wrap strip-row">
+    <span>PHOTO RESCUE</span><span>DESIGN RETAINER</span><span>REVIEW RESPONDER</span><span>SMART SIGNAGE</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">What we do</p>
+      <h2 class="section-title">AI growth services, priced for Main Street</h2>
+      <p class="section-sub">Enterprise-grade AI, delivered by the print shop you already trust. Pick one — or bundle them all.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+        <h3>PHOTO RESCUE</h3>
+        <p>Blurry phone photos rebuilt print-sharp — for menus, signs, flyers &amp; your Google profile.</p>
+        <ul>
+          <li>4× AI upscaling &amp; sharpening</li>
+          <li>Color &amp; lighting correction</li>
+          <li>Print-ready in 48 hours</li>
+        </ul>
+        <p class="price">$10 <small>/ photo &nbsp;·&nbsp; $79 / month</small></p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <h3>DESIGN RETAINER</h3>
+        <p>Fresh social graphics, flyers &amp; promos every month. You approve — we handle everything else.</p>
+        <ul>
+          <li>Monthly custom graphics pack</li>
+          <li>Holiday &amp; promo designs included</li>
+          <li>Unlimited revision rounds</li>
+        </ul>
+        <p class="price">$199–$499 <small>/ month</small></p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+        <h3>REVIEW RESPONDER</h3>
+        <p>Every Google &amp; Yelp review answered fast, in your voice. One tap to approve.</p>
+        <ul>
+          <li>Same-day review responses</li>
+          <li>Matches your tone &amp; brand</li>
+          <li>Alerts for negative reviews</li>
+        </ul>
+        <p class="price">$149 <small>/ month</small></p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM21 14v.01M14 21v.01M18 18h.01M21 21v.01"/></svg></div>
+        <h3>SMART SIGNAGE</h3>
+        <p>QR codes on every sign we print — turning foot traffic into reviews, menus &amp; bookings.</p>
+        <ul>
+          <li>Custom QR design &amp; printing</li>
+          <li>Links to reviews, menu, booking</li>
+          <li>Scan analytics included</li>
+        </ul>
+        <p class="price">$49 <small>/ sign</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE -->
+<section class="bundle" id="bundle">
+  <div class="wrap">
+    <p class="eyebrow" style="color:#fff">Best value</p>
+    <h2>LOCAL BUSINESS GROWTH PACKAGE</h2>
+    <p class="lede">Everything above. One invoice. Zero headaches.</p>
+    <ul class="bundle-list">
+      <li>Photo Rescue — unlimited rescue queue</li>
+      <li>Design Retainer — monthly graphics pack</li>
+      <li>Review Responder — every review, same day</li>
+      <li>Smart Signage — QR on every print job</li>
+    </ul>
+    <p class="bigprice">$399<small style="font-size:24px">/mo</small></p>
+    <p class="per">One flat rate. Cancel anytime.</p>
+    <a class="btn" href="#contact">Get the full package</a>
+    <span class="save">Save up to $278/mo vs. buying separately</span>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Simple by design</p>
+      <h2 class="section-title">How it works</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Free sample</h4>
+        <p>We redo one of your graphics with AI — on the house, 48-hour turnaround.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Pick your plan</h4>
+        <p>Choose a single service or the full Growth Package. No contracts.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>We handle it</h4>
+        <p>Monthly delivery, one-tap approvals. You run your business — we run the marketing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Questions</p>
+      <h2 class="section-title">Frequently asked</h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Do I need to learn any AI tools?</summary>
+        <p>No. That's the whole point — you never touch the AI. You send a photo or an idea, we deliver the finished result. If you can send a text message, you can use this.</p>
+      </details>
+      <details>
+        <summary>Who approves the work before it goes live?</summary>
+        <p>You do — everything comes to you first for a one-tap approval. Nothing posts, prints, or publishes without your say-so.</p>
+      </details>
+      <details>
+        <summary>What if I don't like a design?</summary>
+        <p>Then we redo it. The Design Retainer includes unlimited revision rounds — we iterate until you're happy, or you don't pay for that piece.</p>
+      </details>
+      <details>
+        <summary>Is there a contract or commitment?</summary>
+        <p>No. Every plan is month-to-month and you can cancel anytime. The free sample has no strings attached either.</p>
+      </details>
+      <details>
+        <summary>How is this different from hiring a designer?</summary>
+        <p>Speed and price. AI does the heavy lifting in hours instead of weeks, a real human (us) reviews everything, and you pay a flat monthly rate instead of per-project invoices.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE CTA -->
+<section class="sample" id="sample">
+  <div class="wrap">
+    <p class="eyebrow" style="color:#f5b87a">Free — 48 hours</p>
+    <h2>See it before you buy it.</h2>
+    <p>Send us one graphic. We'll redo it with AI and send it back in 48 hours — free. Keep it either way.</p>
+    <a class="btn" href="#contact">Claim your free sample</a>
+    <p class="fine">No credit card. No commitment. Just proof.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Talk to a human</p>
+      <h2 class="section-title">Get in touch</h2>
+      <p class="section-sub">Call, email, or stop by — we'll take it from there.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="contact-label">Shop</span>
+        <span class="ph">[BUSINESS NAME]</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Phone</span>
+        <span class="ph">[PHONE]</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <span class="ph">[EMAIL]</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Visit</span>
+        <span class="ph">[ADDRESS / HOURS]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <b>[BUSINESS NAME]</b> — Printed &amp; powered locally.
+</footer>
+
+<script>
+(function(){
+  var range = document.getElementById('baRange');
+  var after = document.getElementById('baAfter');
+  var handle = document.getElementById('baHandle');
+  function update(){
+    var v = range.value;
+    after.style.clipPath = 'inset(0 0 0 ' + v + '%)';
+    handle.style.left = v + '%';
+  }
+  range.addEventListener('input', update);
+  update();
+})();
+</script>
+
+</body>
+</html>
